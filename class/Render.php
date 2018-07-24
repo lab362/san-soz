@@ -1,18 +1,15 @@
 <?php 
 
 class Render {
+    const COIN_START    = "{%coin_start%}";
+    const COIN_END      = "{%coin_end%}";
+    const COIN_REGEXP   = '/\{%coin_start%\}.*\{%coin_end%\}/';
 
-    const TENGE = 'tenge';
-    const TENGE_STR = 'tenge_str';
-    const TYIN = 'tyin';
-    const TYIN_STR = 'tyin_str';
+    const TENGE         = '{%tenge%}';
+    const TENGE_STR     = '{%tenge_str%}';
+    const TYIN          = '{%tyin%}';
+    const TYIN_STR      = '{%tyin_str%}';
 
-    protected static $template_labels = [
-        self::TENGE     => '{%tenge%}',
-        self::TENGE_STR => '{%tenge_str%}',
-        self::TYIN      => '{%tyin%}',
-        self::TYIN_STR  => '{%tyin_str%}',
-    ];
 
     protected $values = [
         self::TENGE     => 0,
@@ -27,7 +24,9 @@ class Render {
     }
 
     public function render(){
-        return $this->rendered_value = str_replace(self::$template_labels, $this->values, $this->_template);
+        $value = str_replace(array_keys($this->values), $this->values, $this->_template);      
+        return $this->rendered_value = (empty($this->values[self::TYIN])) ? preg_replace(self::COIN_REGEXP,'',$value) 
+            : $value = str_replace([self::COIN_START, self::COIN_END], '', $value);
     }
 
     public function getInstance($template)
