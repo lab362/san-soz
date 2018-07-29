@@ -10,6 +10,8 @@ class Render {
     const TYIN          = '{%tyin%}';
     const TYIN_STR      = '{%tyin_str%}';
 
+    const TENGE_SYMBOL      = '&#8376;'; // not template, it's value
+
 
     protected $values = [
         self::TENGE     => 0,

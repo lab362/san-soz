@@ -42,11 +42,13 @@ class NumberSpeller
         if ($number < 10): return [self::$baseNumbers[$number]]; endif;
 	    if ($number < 100):	return array_merge([self::$tens[floor($number / 10)]] , self::_spellNumber($number % 10)); endif;
         foreach(self::$dividers as $key => $devItem):
-            if ($key == 0): continue; endif;	
+            if ($key == 0): continue; endif;
             if ($number == $devItem['divider']): return [$devItem['divider']]; endif;
             if ($number < $devItem['divider']):
                 $prev_divider = self::$dividers[$key - 1]['divider'];
-                $arr = array_merge(self::_spellNumber(floor($number / $prev_divider)), [self::$dividers[$key - 1]['spell']]);
+                $devider_number = floor($number / $prev_divider);
+                $arr = ($devider_number != 1) ? array_merge(self::_spellNumber( $devider_number ), [self::$dividers[$key - 1]['spell']])
+                    : [self::$dividers[$key - 1]['spell']] ;
                 return array_merge($arr, self::_spellNumber($number % $prev_divider));
             endif;
         endforeach;
@@ -61,6 +63,5 @@ class NumberSpeller
     public function getSpelled($value){
         return self::spell($value);
     }
-
 
 }
