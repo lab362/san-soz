@@ -7,9 +7,10 @@ class TypeCommon implements TypeNumberInterface{
 
     public function __construct($number)
     {
+        $numbers = explode(".", $number);
         $this->_number = $number;
-        $this->_tenge = intval($this->_number);
-        $this->_tyin = floor(($this->_number - $this->_tenge) * 100);
+        $this->_tenge = $numbers[0];
+        $this->_tyin = $numbers[1] ?? null;
     }
 
     
