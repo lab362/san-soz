@@ -9,8 +9,8 @@ class TypeCommon implements TypeNumberInterface{
     {
         $numbers = explode(".", $number);
         $this->_number = $number;
-        $this->_tenge = $numbers[0];
-        $this->_tyin = $numbers[1] ?? null;
+        $this->_tenge = (int)$numbers[0];
+        $this->_tyin = (int)($numbers[1] ?? 0);
     }
 
     
